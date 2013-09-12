@@ -1,0 +1,30 @@
+*~
+.*.swp
+*.pyc
+*$py.class
+
+# Packages
+*.egg
+*.egg-info
+bin
+build
+develop-eggs
+dist
+eggs
+include
+lib
+parts
+sdist
+share
+var
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+htmlcov
+
+# Developers
+.idea
+.project
+.pydevproject
