@@ -2,7 +2,7 @@
 kishimen.py
 ===========
 
-niconico downloader.
+The niconico Downloader.
 
 Requirements
 ============

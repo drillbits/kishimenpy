@@ -1,26 +1,57 @@
-from setuptools import setup, find_packages
 import os
 
-here = os.path.dirname(__file__)
-readme = open(os.path.join(here, "README.rst")).read()
+from setuptools import setup, find_packages
+
+version = '0.1'
+
+here = os.path.abspath(os.path.dirname(__file__))
+try:
+    with open(os.path.join(here, 'README.txt')) as f:
+        README = f.read()
+    with open(os.path.join(here, 'CHANGES.txt')) as f:
+        CHANGES = f.read()
+except IOError:
+    README = CHANGES = ''
+
+long_description = (
+    README
+    + '\n'
+    + CHANGES
+    + '\n'
+)
+
+requires = [
+    'requests',
+]
+
+entry_points = {
+    'console_scripts': [
+        'kishimenpy = kishimenpy.commands:main',
+    ],
+}
 
 setup(
-    name="kishimenpy",
-    author="drillbits",
-    author_email="neji@drillbits.jp",
-    version="0.0.1",
-    description="niconico downloader",
-    long_description=readme,
-    license="MIT License",
-    package_dir={"": "src"},
-    packages=find_packages("src"),
-    install_requires=[
-        "requests",
+    name='kishimenpy',
+    version=version,
+    description="The niconico Downloader",
+    long_description=long_description,
+    classifiers=[
+        "Development Status :: 3 - Alpha",
+        "Intended Audience :: Developers",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3.3",
+        "Topic :: Utilities",
+        "License :: OSI Approved :: MIT License",
     ],
-    tests_require=[],
-    entry_points={
-        "console_scripts": [
-            "kishimenpy=kishimenpy.commands:main",
-        ],
-    },
+    keywords='',
+    author='Jiro Nejime',
+    author_email='neji@drillbits.jp',
+    url='https://github.com/drillbits/kishimenpy',
+    license='MIT',
+    package_dir={'': 'src'},
+    packages=find_packages('src'),
+    include_package_data=True,
+    zip_safe=False,
+    install_requires=requires,
+    entry_points=entry_points,
 )
