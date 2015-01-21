@@ -1,6 +1,6 @@
 import requests
 
-LOGIN_URL = "https://secure.nicovideo.jp/secure/login"
+LOGIN_URL = "https://secure.nicovideo.jp/secure/login?site=niconico"
 MYPAGE_URL = "http://www.nicovideo.jp/my/top"
 
 
