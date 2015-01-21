@@ -7,7 +7,7 @@ The niconico Downloader.
 Requirements
 ============
 
-- Python 3.3
+- Python 3.4
 - requests
 
 Installation

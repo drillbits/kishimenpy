@@ -1,7 +1,15 @@
+import enum
+
 import requests
 
-LOGIN_URL = "https://secure.nicovideo.jp/secure/login?site=niconico"
-MYPAGE_URL = "http://www.nicovideo.jp/my/top"
+LOGIN_URL = 'https://secure.nicovideo.jp/secure/login?site=niconico'
+MYPAGE_URL = 'http://www.nicovideo.jp/my/top'
+
+
+class AuthFlag(enum.Enum):
+    Logout = '0'
+    FreeUser = '1'
+    PremiumUser = '3'
 
 
 class LoginError(Exception):
@@ -23,27 +31,18 @@ class Session(object):
     def is_login(self, response=None):
         if not response:
             response = self.get(MYPAGE_URL)
-        # 0: Logout
-        # 1: Login as free user
-        # 3: Login as premium user
-        return not response.headers["x-niconico-authflag"] == "0"
+        authflag = response.headers.get('x-niconico-authflag')
+        if authflag is None:
+            return False
+        return AuthFlag(authflag) is not AuthFlag.Logout
 
     def login(self, mail=None, password=None):
-        if mail:
-            self.mail = mail
-        if password:
-            self.password = password
         response = self.post(LOGIN_URL, data={
-            "mail": self.mail,
-            "password": self.password,
+            'mail': mail,
+            'password': password,
         })
         if not self.is_login(response):
-            raise LoginError(
-                "mail: \"{mail}\", password: \"{password}\"".format(
-                    mail=self.mail,
-                    password=self.password,
-                )
-            )
+            raise LoginError('mail: "%s", password: "****************"' % mail)
 
     def logout(self):
         self._session = requests.Session()
